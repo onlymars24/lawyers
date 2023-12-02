@@ -1,76 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
 use App\Models\Setting;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class DataController extends Controller
+class DataSeeder extends Seeder
 {
-    public function get(){
-        $settings = Setting::where('title', 'pages')->first();
-        $pages = $settings->data;
-
-        return response([
-            'pages' => json_decode($pages)
-        ]);
-    }
-
-    // $data
-    // $arrayName
-    // $id = null
-    public function update(Request $request){
-        $validator = Validator::make($request->all(), [
-            'arrayName' => 'required',
-            'data' => 'required',
-        ]);
-        if($validator->fails()){
-            return response(
-                [
-                    'errors' => $validator->errors()
-                ], 422
-            );
-        }
-        $settings = Setting::where('title', 'pages')->first();
-        $pages = json_decode($settings->data);
-        $pages = (array)$pages;
-
-        if($request->arrayName != 'lawyerEvents' && $request->arrayName != 'advocatsInfo'){
-            $pages[$request->arrayName] = (array)json_decode($request->data);
-            $settings->data = json_encode($pages);
-            $settings->save();
-            return response([
-                'pages' => $pages
-            ]);
-        }
-
-        if(!$request->id){
-            return response(
-                [
-                    'error' => 'Id не указан!'
-                ]
-            );
-        }
-
-        $pages[$request->arrayName];
-        foreach($pages[$request->arrayName] as $ind => $el){
-            if($el['id'] == $request->id){
-                $pages[$request->arrayName][$ind] = (array)json_decode($request->data);
-                break;
-            }
-        }
-
-        $settings->data = json_encode($pages);
-        $settings->save();
-        return response([
-            'pages' => $pages
-        ]);
-
-    }
-
-    public function reset(){
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
         $settings = Setting::where('title', 'pages')->first();
         $settings->delete();
         $data = '{   "slide": [
@@ -212,9 +154,5 @@ class DataController extends Controller
             'title' => 'pages',
             'data' => $data
           ]);
-
-        return response([
-            'message' => 'Success!'
-        ]);
     }
 }

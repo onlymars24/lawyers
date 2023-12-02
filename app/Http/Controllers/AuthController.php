@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         if(!Auth::attempt($request->all())){
-            return response(['message' => 'Неверный номер или пароль!'], 422);
+            return response(['message' => 'Неверный логин или пароль!'], 422);
         }
 
         $token = Auth::user()->createToken('authToken')->accessToken;
