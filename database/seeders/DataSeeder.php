@@ -14,7 +14,9 @@ class DataSeeder extends Seeder
     public function run(): void
     {
         $settings = Setting::where('title', 'pages')->first();
-        $settings->delete();
+        if($settings){
+          $settings->delete();
+        }
         $data = '{   "slide": [
             {
               "slideText": {

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
       dd('Da!');
     });
 
-    Route::get('/add', function () {
+    // Route::get('/add', function () {
       // $data = '{   "slide": [
       //     {
       //       "slideText": {
@@ -160,9 +160,9 @@ use Illuminate\Support\Facades\Route;
       //     'data' => $data
       //   ]);
       
-      $settings = Setting::where('title', 'pages')->first();
-      $pages = json_decode($settings->data);
-      dd((array)$pages);
+    //   $settings = Setting::where('title', 'pages')->first();
+    //   $pages = json_decode($settings->data);
+    //   dd((array)$pages);
       
-      return view('welcome');
-    });
+    //   return view('welcome');
+    // });

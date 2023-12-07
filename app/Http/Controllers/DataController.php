@@ -72,7 +72,9 @@ class DataController extends Controller
 
     public function reset(){
         $settings = Setting::where('title', 'pages')->first();
-        $settings->delete();
+        if($settings){
+          $settings->delete();
+        }
         $data = '{   "slide": [
             {
               "slideText": {

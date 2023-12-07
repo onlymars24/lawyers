@@ -14,8 +14,11 @@ class AdminRegisterSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {   
-        $adminOld = User::first()->delete();
+    {
+        $adminOld = User::first();
+        if($adminOld){
+          $adminOld->delete();
+        }
         $admin = User::create([
             'login' => 'admin',
             'password' => Hash::make('qwerty123')
