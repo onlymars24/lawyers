@@ -36,6 +36,7 @@ class DataController extends Controller
         $settings = Setting::where('title', 'pages')->first();
         $pages = json_decode($settings->data);
         $pages = (array)$pages;
+        // dd($pages);
 
         if($request->arrayName != 'lawyerEvents' && $request->arrayName != 'advocatsInfo'){
             $pages[$request->arrayName] = (array)json_decode($request->data);
@@ -50,13 +51,14 @@ class DataController extends Controller
             return response(
                 [
                     'error' => 'Id не указан!'
-                ]
+                ], 422
             );
         }
 
-        $pages[$request->arrayName];
+        // dd($pages[$request->arrayName]);
         foreach($pages[$request->arrayName] as $ind => $el){
-            if($el['id'] == $request->id){
+          // dd($el);
+            if($el->id == $request->id){
                 $pages[$request->arrayName][$ind] = (array)json_decode($request->data);
                 break;
             }
@@ -219,4 +221,23 @@ class DataController extends Controller
             'message' => 'Success!'
         ]);
     }
+
+    public function upload(Request $request)
+    {
+        // Проверяем, что файл был передан
+        if ($request->hasFile('image')) {
+            // Получаем файл
+            $file = $request->file('image');
+
+            // Перемещаем файл в нужную директорию (storage/app/public/images)
+            $path = $file->store('public/images');
+
+            // Можно также сохранить путь в базу данных или выполнять другие операции
+
+            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path]);
+        } else {
+            return response()->json(['error' => 'Файл не был передан'], 400);
+        }
+    }
+
 }
