@@ -18,7 +18,7 @@ class DataSeeder extends Seeder
         if($settings){
           $settings->delete();
         }
-        $data = json_encode(Data::$data);
+        $data = Data::$data;
           
           $settings = Setting::create([
             'title' => 'pages',
