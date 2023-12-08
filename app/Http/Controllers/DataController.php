@@ -95,16 +95,16 @@ class DataController extends Controller
     public function upload(Request $request)
     {
         // Проверяем, что файл был передан
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('file')) {
             // Получаем файл
-            $file = $request->file('image');
+            $file = $request->file('file');
 
             // Перемещаем файл в нужную директорию (storage/app/public/images)
             $path = $file->store('public/images');
 
             // Можно также сохранить путь в базу данных или выполнять другие операции
 
-            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path]);
+            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'text' => $request->text]);
         } else {
             return response()->json(['error' => 'Файл не был передан'], 400);
         }
