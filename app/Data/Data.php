@@ -154,6 +154,7 @@ class Data
             "rus": "контент1",
             "eng": "contyent1"
           },
+          "img": "slide2.png",
           "id": "круглый_стол"
         },
         {
@@ -169,6 +170,7 @@ class Data
             "rus": "Контент1",
             "eng": "Content1"
           },
+          "img": "slide2.png",
           "id": "Некруглый_стол"
         }
       ],
