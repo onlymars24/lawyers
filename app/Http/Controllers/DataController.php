@@ -78,8 +78,10 @@ class DataController extends Controller
         if($settings){
           $settings->delete();
         }
-        $data = json_encode(Data::$data);
-          
+        $data = Data::$data;
+        // return response([
+        //     'data' => json_decode($data)
+        // ]);
           $settings = Setting::create([
             'title' => 'pages',
             'data' => $data
