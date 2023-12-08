@@ -21,7 +21,7 @@ class AdminRegisterSeeder extends Seeder
         }
         $admin = User::create([
             'login' => 'admin',
-            'password' => Hash::make('qwerty123')
+            'password' => Hash::make(env('ADMIN_PASSWORD'))
         ]);
         Auth::loginUsingId($admin->id);
         Auth::user()->createToken('authToken')->accessToken;
