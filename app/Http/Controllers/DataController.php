@@ -125,7 +125,7 @@ class DataController extends Controller
     }
 
     public function addSlide(Request $request){
-        return response(['text' => $request->text]);
+        return response(['text' => json_decode($request->text)]);
         if ($request->hasFile('filePdf') && $request->hasFile('fileImg')) {
             $filePdf = $request->file('filePdf');
             $fileImg = $request->file('fileImg');
