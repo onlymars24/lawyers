@@ -151,6 +151,13 @@ class DataController extends Controller
     }
 
     public function deleteSlide(Request $request){
-
+        $settings = Setting::where('title', 'pages')->first();
+        $pages = json_decode($settings->data);
+        $pages = (array)$pages;
+        foreach($pages['slideEvents'] as $ind => $slide){
+            if($request->id == $slide->id){
+                unset($pages['slideEvents'][$ind]);
+            }
+        }
     }
 }
