@@ -24,4 +24,3 @@ Route::middleware('auth:api')->group(function(){
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/get', [DataController::class, 'get']);
-Route::post('/upload', [DataController::class, 'upload']);
