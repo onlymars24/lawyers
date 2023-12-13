@@ -137,7 +137,7 @@ class DataController extends Controller
             $settings = Setting::where('title', 'pages')->first();
             $pages = json_decode($settings->data);
             $pages = (array)$pages;
-            $slide = ['slideText' => ['rus' => $text->rus, 'eng' => $text->eng], 'img' => $pathImg, 'pdf' => $pathPdf, 'id' => $request->lastId+1];
+            $slide = ['slideText' => ['rus' => $text->rus, 'eng' => $text->eng], 'img' => $pathImg, 'pdf' => $pathPdf, 'id' => (int)$request->lastId+1];
             $slide = json_encode($slide);
             $slide = json_decode($slide);
             $pages['slideEvents'][] = $slide;
@@ -161,7 +161,8 @@ class DataController extends Controller
                 unset($pages['slideEvents'][$ind]);
             }
         }
-        $settings->data = json_encode((array)$pages);
+        $pages['slideEvents'] = (array)$pages['slideEvents'];
+        $settings->data = json_encode($pages);
         $settings->save();
     }
 }
