@@ -94,17 +94,11 @@ class DataController extends Controller
 
     public function uploadFile(Request $request)
     {
-
-
-        // Проверяем, что файл был передан
         if ($request->hasFile('file')) {
-            // Получаем файл
             $file = $request->file('file');
 
-            // Перемещаем файл в нужную директорию (storage/app/public/images)
             $path = $file->store('files');
 
-            // Можно также сохранить путь в базу данных или выполнять другие операции
             $settings = Setting::where('title', 'pages')->first();
             $pages = json_decode($settings->data);
             $pages = (array)$pages;
@@ -125,6 +119,30 @@ class DataController extends Controller
             $settings->data = json_encode($pages);
             $settings->save();
             return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'id' => $request->id, 'arrayName' => $request->arrayName, 'fileFormat' => $request->fileFormat, 'text' => $request->text, ]);
+        } else {
+            return response()->json(['error' => 'Файл не был передан'], 400);
+        }
+    }
+
+    public function addSlide(Request $request){
+        if ($request->hasFile('filePdf') && $request->hasFile('fileImg')) {
+            $pdf = $request->file('pdf');
+            $img = $request->file('img');
+
+            $pathPdf = $pdf->store('files');
+            $pathImg = $img->store('files');
+
+            $settings = Setting::where('title', 'pages')->first();
+            $pages = json_decode($settings->data);
+            $pages = (array)$pages;
+            $slide = ['slideText' => $request->slideText, 'img' => $pathImg, 'pdf' => $pathPdf, 'id' => $request->lastId+1];
+            $slide = json_encode($slide);
+            $slide = json_decode($slide);
+            $pages['slideEvents'][] = $slide;
+
+            $settings->data = json_encode($pages);
+            $settings->save();
+            return response()->json(['message' => 'Файл успешно загружен', 'pathPdf' => $pathPdf, 'lastId' => $request->lastId ]);
         } else {
             return response()->json(['error' => 'Файл не был передан'], 400);
         }
