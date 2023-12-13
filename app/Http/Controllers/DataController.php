@@ -92,21 +92,40 @@ class DataController extends Controller
         ]);
     }
 
-    public function upload(Request $request)
+    public function uploadFile(Request $request)
     {
+
+
         // Проверяем, что файл был передан
         if ($request->hasFile('file')) {
             // Получаем файл
             $file = $request->file('file');
 
             // Перемещаем файл в нужную директорию (storage/app/public/images)
-            $path = $file->store('public/images');
+            $path = $file->store('public/files');
 
             // Можно также сохранить путь в базу данных или выполнять другие операции
-
-            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'file' => $file, 'id' => $request->id, 'arrayName' => $request->arrayName, 'fileFormat' => $request->fileFormat ]);
-        } 
-        else {
+            $settings = Setting::where('title', 'pages')->first();
+            $pages = json_decode($settings->data);
+            $pages = (array)$pages;
+            $data = null;
+            foreach($pages[$request->arrayName] as $ind => $el){
+                if($el->id == $request->id){
+                        $data = $pages[$request->arrayName][$ind];
+                        if($request->fileFormat == 'img'){
+                            $data->img = $path;                            
+                        }
+                        else{
+                            $data->pdf = $path;     
+                        }
+                        $pages[$request->arrayName][$ind] = $data;
+                        break;
+                }
+            }
+            $settings->data = json_encode($pages);
+            $settings->save();
+            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'id' => $request->id, 'arrayName' => $request->arrayName, 'fileFormat' => $request->fileFormat, 'text' => $request->text, ]);
+        } else {
             return response()->json(['error' => 'Файл не был передан'], 400);
         }
     }
