@@ -125,7 +125,8 @@ class DataController extends Controller
     }
 
     public function addSlide(Request $request){
-        return response(['text' => $request->textz]);
+        // return response(['text' => $request->textz]);
+        $text = json_decode($request->text);
         if ($request->hasFile('filePdf') && $request->hasFile('fileImg')) {
             $filePdf = $request->file('filePdf');
             $fileImg = $request->file('fileImg');
@@ -136,7 +137,7 @@ class DataController extends Controller
             $settings = Setting::where('title', 'pages')->first();
             $pages = json_decode($settings->data);
             $pages = (array)$pages;
-            $slide = ['slideText' => ['rus' => $request->text->rus, 'eng' => $request->text->eng], 'img' => $pathImg, 'pdf' => $pathPdf, 'id' => $request->lastId+1];
+            $slide = ['slideText' => ['rus' => $text->rus, 'eng' => $text->eng], 'img' => $pathImg, 'pdf' => $pathPdf, 'id' => $request->lastId+1];
             $slide = json_encode($slide);
             $slide = json_decode($slide);
             $pages['slideEvents'][] = $slide;
