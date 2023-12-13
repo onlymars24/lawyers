@@ -161,7 +161,7 @@ class DataController extends Controller
                 unset($pages['slideEvents'][$ind]);
             }
         }
-        $pages['slideEvents'] = (array)$pages['slideEvents'];
+        $pages['slideEvents'] = (array)array_values($pages['slideEvents']);
         $settings->data = json_encode($pages);
         $settings->save();
     }
