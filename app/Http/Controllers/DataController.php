@@ -102,7 +102,7 @@ class DataController extends Controller
             $file = $request->file('file');
 
             // Перемещаем файл в нужную директорию (storage/app/public/images)
-            $path = $file->store('public/files');
+            $path = $file->store('files');
 
             // Можно также сохранить путь в базу данных или выполнять другие операции
             $settings = Setting::where('title', 'pages')->first();
