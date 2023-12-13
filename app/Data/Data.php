@@ -5,35 +5,18 @@ namespace App\Data;
 
 class Data
 {
-    public static $data = '{   "slide": [
-      {
-        "slideText": {
-          "rus": "слайдтекст1",
-          "eng": "slidetext1"
-        },
-        "slideImg": "slideImg1.jpg",
-        "id": 0
-      },
-      {
-      "slideText": {
-          "rus": "слайдтекст2",
-          "eng": "slidetext2"
-      },
-      "slideImg": "slideImg1.jpg",
-      "id": 1
-      }
-    ],
+    public static $data = '{
     "slideEvents": [
       {
         "slideText": "",
-        "slideImg": "slideImg1.jpg",
-        "slidePdf": "slide1.pdf",
+        "img": "slideImg1.jpg",
+        "pdf": "slide1.pdf",
         "id": 0
       },
       {
         "slideText": "",
-        "slideImg": "slide2.png",
-        "slidePdf": "slide2.pdf",
+        "img": "slide2.png",
+        "pdf": "slide2.pdf",
         "id": 1
       }
     ],
@@ -112,6 +95,7 @@ class Data
           "eng": " Rudich"
         },
         "img": "rudich.png",
+        "pdf": "rudich.pdf",
         "tel": "8(932)244-23-11",
         "telLink": "8932244231",
         "email": "sadural@mail.ru",
@@ -133,6 +117,7 @@ class Data
           "eng": " Abramov"
         },
         "img": "Abramov.png",
+        "pdf": "Abramov.pdf",
         "tel": "8(932)244-23-11",
         "telLink": "8932244231",
         "email": "sadural@mail.ru",
@@ -155,6 +140,7 @@ class Data
           "eng": "contyent1"
         },
         "img": "slide2.png",
+        "pdf": "slide2.pdf",
         "id": "круглый_стол"
       },
       {
@@ -171,6 +157,7 @@ class Data
           "eng": "Content1"
         },
         "img": "slide2.png",
+        "pdf": "slide2.pdf",
         "id": "Некруглый_стол"
       }
     ],

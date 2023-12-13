@@ -104,10 +104,9 @@ class DataController extends Controller
 
             // Можно также сохранить путь в базу данных или выполнять другие операции
 
-            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'text' => $request->text]);
+            return response()->json(['message' => 'Файл успешно загружен', 'path' => $path, 'id' => $request->id, 'arrayName' => $request->arrayName, 'fileFormat' => $request->fileFormat ]);
         } else {
             return response()->json(['error' => 'Файл не был передан'], 400);
         }
     }
-
 }
