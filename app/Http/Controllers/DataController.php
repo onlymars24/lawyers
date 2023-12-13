@@ -126,11 +126,11 @@ class DataController extends Controller
 
     public function addSlide(Request $request){
         if ($request->hasFile('filePdf') && $request->hasFile('fileImg')) {
-            $pdf = $request->file('pdf');
-            $img = $request->file('img');
+            $filePdf = $request->file('filePdf');
+            $fileImg = $request->file('fileImg');
 
-            $pathPdf = $pdf->store('files');
-            $pathImg = $img->store('files');
+            $pathPdf = $filePdf->store('files');
+            $pathImg = $fileImg->store('files');
 
             $settings = Setting::where('title', 'pages')->first();
             $pages = json_decode($settings->data);
@@ -146,5 +146,9 @@ class DataController extends Controller
         } else {
             return response()->json(['error' => 'Файл не был передан'], 400);
         }
+    }
+
+    public function deleteSlide(Request $request){
+
     }
 }
