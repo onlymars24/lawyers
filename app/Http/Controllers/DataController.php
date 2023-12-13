@@ -155,7 +155,7 @@ class DataController extends Controller
         $pages = json_decode($settings->data);
         $pages = (array)$pages;
         foreach($pages['slideEvents'] as $ind => $slide){
-            return response(['id' => $slide->id, 'id' => $request->id]);
+            return response(['id' => $slide['id'], 'id' => $request->id]);
             if($request->id == $slide->id){
                 unset($pages['slideEvents'][$ind]);
             }
