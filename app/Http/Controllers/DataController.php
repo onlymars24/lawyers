@@ -94,7 +94,7 @@ class DataController extends Controller
 
     public function uploadFile(Request $request)
     {
-        if ($request->hasFile('file')) {
+        if($request->hasFile('file')){
             $file = $request->file('file');
 
             $path = $file->store('files');
@@ -178,6 +178,36 @@ class DataController extends Controller
                 $pages[$request->arrayName][$ind]->pdf = '';
             }
         }
+        $settings->data = json_encode($pages);
+        $settings->save();
+    }
+
+    //lastId
+
+    public function addLawyerEvent(Request $request){
+        $settings = Setting::where('title', 'pages')->first();
+        $pages = json_decode($settings->data);
+        $pages = (array)$pages;
+        $event = [
+            "cardHeader" => [
+                  "rus" => "", 
+                  "eng" => "" 
+               ], 
+            "cardText" => [
+                     "rus" => "", 
+                     "eng" => "" 
+                  ], 
+            "content" => [
+                        "rus" => "", 
+                        "eng" => "" 
+                     ], 
+            "img" => "", 
+            "pdf" => "", 
+            "id" => (int)$request->lastId+1
+        ];
+        $event = json_encode($event);
+        $event = json_decode($event);
+        $pages['lawyerEvents'][] = $event;
         $settings->data = json_encode($pages);
         $settings->save();
     }
