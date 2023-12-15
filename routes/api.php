@@ -24,6 +24,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/delete/slide', [DataController::class, 'deleteSlide']);
     Route::post('/delete/pdf', [DataController::class, 'deletePdf']);
     Route::post('/add/lawyer/event', [DataController::class, 'addLawyerEvent']);
+    Route::post('/delete/lawyer/event', [DataController::class, 'deleteLawyerEvent']);
 });
 
 
