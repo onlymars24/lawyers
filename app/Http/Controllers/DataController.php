@@ -168,7 +168,6 @@ class DataController extends Controller
 
     //$id
     //$arrayName
-    //
     public function deletePdf(Request $request){
         $settings = Setting::where('title', 'pages')->first();
         $pages = json_decode($settings->data);
