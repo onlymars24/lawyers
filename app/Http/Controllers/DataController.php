@@ -175,7 +175,7 @@ class DataController extends Controller
         foreach($pages[$request->arrayName] as $ind => $item){
             // return response(['id' => $slide->id, 'id' => $request->id]);
             if($request->id == $item->id){
-                $pages[$request->arrayName][$ind]->pdf = null;
+                $pages[$request->arrayName][$ind]->pdf = '';
             }
         }
         $settings->data = json_encode($pages);
