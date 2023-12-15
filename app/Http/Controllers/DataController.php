@@ -211,4 +211,22 @@ class DataController extends Controller
         $settings->data = json_encode($pages);
         $settings->save();
     }
+
+    public function deleteLawyerEvent(Request $request){
+        // return response(['id' => $request->id]);
+        $settings = Setting::where('title', 'pages')->first();
+        $pages = json_decode($settings->data);
+        $pages = (array)$pages;
+        foreach($pages['lawyerEvents'] as $ind => $slide){
+            // return response(['id' => $slide->id, 'id' => $request->id]);
+            if($request->id == $slide->id){
+                unset($pages['lawyerEvents'][$ind]);
+            }
+        }
+        $pages['lawyerEvents'] = (array)array_values($pages['lawyerEvents']);
+        $settings->data = json_encode($pages);
+        $settings->save();
+    }
+
+
 }
