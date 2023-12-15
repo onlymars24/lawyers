@@ -178,7 +178,7 @@ class DataController extends Controller
                 $pages[$request->arrayName][$ind]->pdf = null;
             }
         }
-        $settings->data = $pages;
+        $settings->data = json_encode($pages);
         $settings->save();
     }
 }
