@@ -18,10 +18,10 @@ use App\Http\Controllers\DataController;
 
 Route::middleware('auth:api')->group(function(){
     Route::post('/update', [DataController::class, 'update']);
-    Route::post('/reset', [DataController::class, 'reset']); 
+    // Route::post('/reset', [DataController::class, 'reset']); 
     Route::post('/upload/file', [DataController::class, 'uploadFile']); 
     Route::post('/add/slide', [DataController::class, 'addSlide']);   
-    Route::post('/delete/slide', [DataController::class, 'deleteSlide']);   
+    Route::post('/delete/slide', [DataController::class, 'deleteSlide']);
 });
 
 

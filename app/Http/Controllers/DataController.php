@@ -165,4 +165,21 @@ class DataController extends Controller
         $settings->data = json_encode($pages);
         $settings->save();
     }
+
+    //$id
+    //$arrayName
+    //
+    public function deletePdf(Request $request){
+        $settings = Setting::where('title', 'pages')->first();
+        $pages = json_decode($settings->data);
+        $pages = (array)$pages;
+        foreach($pages[$request->arrayName] as $ind => $item){
+            // return response(['id' => $slide->id, 'id' => $request->id]);
+            if($request->id == $item->id){
+                $pages[$request->arrayName][$ind]->pdf = null;
+            }
+        }
+        $settings->data = $pages;
+        $settings->save();
+    }
 }
