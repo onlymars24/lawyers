@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/add/slide', [DataController::class, 'addSlide']);
     Route::post('/delete/slide', [DataController::class, 'deleteSlide']);
     Route::post('/delete/pdf', [DataController::class, 'deletePdf']);
+    Route::post('/add/lawyer/event', [DataController::class, 'addLawyerEvent']);
 });
 
 
