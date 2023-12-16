@@ -190,19 +190,19 @@ class DataController extends Controller
         $pages = (array)$pages;
         $event = [
             "cardHeader" => [
-                  "rus" => "", 
-                  "eng" => "" 
+                  "rus" => "*", 
+                  "eng" => "*" 
                ], 
             "cardText" => [
-                     "rus" => "", 
-                     "eng" => "" 
+                     "rus" => "*", 
+                     "eng" => "*" 
                   ], 
             "content" => [
-                        "rus" => "", 
-                        "eng" => "" 
+                        "rus" => "*", 
+                        "eng" => "*" 
                      ], 
-            "img" => "", 
-            "pdf" => "", 
+            "img" => "*", 
+            "pdf" => "*", 
             "id" => (int)$request->lastId+1
         ];
         $event = json_encode($event);
