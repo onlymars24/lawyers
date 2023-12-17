@@ -194,12 +194,12 @@ class DataController extends Controller
                   "eng" => "" 
                ], 
             "cardText" => [
-                     "rus" => "*", 
-                     "eng" => "*" 
+                     "rus" => "", 
+                     "eng" => "" 
                   ], 
             "content" => [
-                        "rus" => "*", 
-                        "eng" => "*" 
+                        "rus" => "", 
+                        "eng" => "" 
                      ], 
             "img" => "", 
             "pdf" => "", 
