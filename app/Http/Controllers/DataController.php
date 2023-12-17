@@ -6,6 +6,7 @@ use App\Data\Data;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class DataController extends Controller
@@ -107,10 +108,18 @@ class DataController extends Controller
                 if($el->id == $request->id){
                         $data = $pages[$request->arrayName][$ind];
                         if($request->fileFormat == 'img'){
-                            $data->img = $path;                            
+                            $filePath = public_path($data->img);
+                            if(File::exists($filePath)) {
+                              File::delete($filePath);
+                            }
+                            $data->img = $path;
                         }
                         else{
-                            $data->pdf = $path;     
+                            $filePath = public_path($data->pdf);
+                            if(File::exists($filePath)) {
+                              File::delete($filePath);
+                            }
+                            $data->pdf = $path;
                         }
                         $pages[$request->arrayName][$ind] = $data;
                         break;
@@ -158,6 +167,15 @@ class DataController extends Controller
         foreach($pages['slideEvents'] as $ind => $slide){
             // return response(['id' => $slide->id, 'id' => $request->id]);
             if($request->id == $slide->id){
+                $data = $pages['slideEvents'][$ind];
+                $filePathPdf = public_path($data->pdf);
+                if(File::exists($filePathPdf)){
+                  File::delete($filePathPdf);
+                }
+                $filePathImg = public_path($data->img);
+                if(File::exists($filePathImg)){
+                  File::delete($filePathImg);
+                }
                 unset($pages['slideEvents'][$ind]);
             }
         }
@@ -175,6 +193,11 @@ class DataController extends Controller
         foreach($pages[$request->arrayName] as $ind => $item){
             // return response(['id' => $slide->id, 'id' => $request->id]);
             if($request->id == $item->id){
+                $data = $pages['slideEvents'][$ind];
+                $filePathPdf = public_path($data->pdf);
+                if(File::exists($filePathPdf)){
+                  File::delete($filePathPdf);
+                }
                 $pages[$request->arrayName][$ind]->pdf = '';
             }
         }
@@ -183,7 +206,6 @@ class DataController extends Controller
     }
 
     //lastId
-
     public function addLawyerEvent(Request $request){
         $settings = Setting::where('title', 'pages')->first();
         $pages = json_decode($settings->data);
@@ -220,6 +242,15 @@ class DataController extends Controller
         foreach($pages['lawyerEvents'] as $ind => $slide){
             // return response(['id' => $slide->id, 'id' => $request->id]);
             if($request->id == $slide->id){
+                $data = $pages['lawyerEvents'][$ind];
+                $filePathPdf = public_path($data->pdf);
+                if(File::exists($filePathPdf)){
+                  File::delete($filePathPdf);
+                }
+                $filePathImg = public_path($data->img);
+                if(File::exists($filePathImg)){
+                  File::delete($filePathImg);
+                }
                 unset($pages['lawyerEvents'][$ind]);
             }
         }
@@ -227,6 +258,4 @@ class DataController extends Controller
         $settings->data = json_encode($pages);
         $settings->save();
     }
-
-
 }

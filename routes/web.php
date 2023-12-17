@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Setting;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
     Route::get('/', function () {
+      // dd(public_path(''));
+      $filePath = public_path('');
+      if(File::exists($filePath)) {
+        File::delete($filePath);
+        return "Файл успешно удален";
+      }
       dd('Da!');
     });
 
