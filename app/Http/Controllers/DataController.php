@@ -193,7 +193,7 @@ class DataController extends Controller
         foreach($pages[$request->arrayName] as $ind => $item){
             // return response(['id' => $slide->id, 'id' => $request->id]);
             if($request->id == $item->id){
-                $data = $pages['slideEvents'][$ind];
+                $data = $pages[$request->arrayName][$ind];
                 $filePathPdf = public_path($data->pdf);
                 if(File::exists($filePathPdf)){
                   File::delete($filePathPdf);
